@@ -1,0 +1,18 @@
+﻿@page "/items"
+<h1>Товары</h1>
+<ul>
+@foreach (var item in items)
+{
+    <li>@item.Name — @item.Price ₽</li>
+}
+</ul>
+@code {
+    record Item(string Name, int Price);
+    
+    List<Item> items = new()
+        {
+            new("Меч", 500),
+            new("Щит", 300),
+            new("Зелье", 50)
+        };
+}
