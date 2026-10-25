@@ -1,6 +1,9 @@
+using Shop;
 using Shop.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<CatalogService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

@@ -1,18 +1,12 @@
 ﻿@page "/items"
+@inject CatalogService Catalog
+@rendermode InteractiveServer
 <h1>Товары</h1>
+
 <ul>
-@foreach (var item in items)
+@foreach (var item in Catalog.Items)
 {
-    <li>@item.Name — @item.Price ₽</li>
+    <li>@item.Name — @item.Price ₽ <button @onclick="() => Catalog.Buy(item)">Купить</button></li>
 }
 </ul>
-@code {
-    record Item(string Name, int Price);
-    
-    List<Item> items = new()
-        {
-            new("Меч", 500),
-            new("Щит", 300),
-            new("Зелье", 50)
-        };
-}
+<p>В корзине: @Catalog.Cart.Count</p>
