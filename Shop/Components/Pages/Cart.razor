@@ -9,10 +9,13 @@
 else
 {
     <ul>
-    @foreach (var item in Catalog.Cart.ToList())
-    {
-        <li>@item.Name — @item.Price ₽ <button @onclick="() => Catalog.Remove(item)">Убрать</button></li>
-    }
+        @foreach (var item in Catalog.Cart.ToList())
+        {
+            <li>@item.Name — @item.Price ₽
+                <button @onclick="() => Catalog.Remove(item)">Убрать</button>
+            </li>
+        }
     </ul>
     <p><b>Итого: @Catalog.Total ₽</b></p>
+    <button @onclick="Catalog.Checkout">Оформить заказ</button>
 }

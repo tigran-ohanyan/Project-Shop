@@ -1,15 +1,22 @@
+using Microsoft.EntityFrameworkCore;
 using Shop;
 using Shop.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<CatalogService>();
+builder.Services.AddDbContext<ShopDb>(o => o.UseSqlite("Data Source=shop.db"));
+
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+    scope.ServiceProvider.GetRequiredService<ShopDb>().Database.EnsureCreated();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
