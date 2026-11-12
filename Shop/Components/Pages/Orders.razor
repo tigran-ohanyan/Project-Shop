@@ -1,0 +1,24 @@
+﻿@page "/orders"
+@using Microsoft.EntityFrameworkCore
+@inject ShopDb Db
+
+<h1>Мои заказы</h1>
+@foreach (var order in orders)
+{
+    <h3>Заказ №@order.Id от @order.CreatedAt.ToString("dd.MM HH:mm") — @order.Total ₽</h3>
+    <ul>
+    @foreach (var line in order.Lines)
+    {
+        <li>@line.Name — @line.Price ₽</li>
+    }
+    </ul>
+}
+@code {
+    List<Order> orders = new();
+    
+    protected override async Task OnInitializedAsync() =>
+        orders = await Db.Orders
+            .Include(o => o.Lines)
+            .OrderByDescending(o => o.CreatedAt)
+            .ToListAsync();
+}
