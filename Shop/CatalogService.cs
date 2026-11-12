@@ -14,4 +14,8 @@ public class CatalogService
     public List<Item> Cart { get; } = new();
 
     public void Buy(Item item) => Cart.Add(item);
+
+    public void Remove(Item item) => Cart.Remove(item);
+
+    public int Total => Cart.Sum(i => i.Price);
 }

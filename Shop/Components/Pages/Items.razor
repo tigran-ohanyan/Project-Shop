@@ -1,6 +1,5 @@
 ﻿@page "/items"
 @inject CatalogService Catalog
-@rendermode InteractiveServer
 <h1>Товары</h1>
 
 <ul>
@@ -9,4 +8,4 @@
     <li>@item.Name — @item.Price ₽ <button @onclick="() => Catalog.Buy(item)">Купить</button></li>
 }
 </ul>
-<p>В корзине: @Catalog.Cart.Count</p>
+<p><a href="cart">В корзине: @Catalog.Cart.Count</a></p>

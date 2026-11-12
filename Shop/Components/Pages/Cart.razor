@@ -1,0 +1,18 @@
+﻿@page "/cart"
+@inject CatalogService Catalog
+
+<h1>Корзина</h1>
+@if (Catalog.Cart.Count == 0)
+{
+    <p>Корзина пуста. <a href="items">К товарам</a></p>
+}
+else
+{
+    <ul>
+    @foreach (var item in Catalog.Cart.ToList())
+    {
+        <li>@item.Name — @item.Price ₽ <button @onclick="() => Catalog.Remove(item)">Убрать</button></li>
+    }
+    </ul>
+    <p><b>Итого: @Catalog.Total ₽</b></p>
+}
