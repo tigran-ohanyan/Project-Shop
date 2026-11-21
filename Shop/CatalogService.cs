@@ -5,12 +5,8 @@ public record Item(string Name, int Price);
 public class CatalogService(ShopDb db)
 
 {
-    public List<Item> Items { get; } = new()
-    {
-        new("Меч", 500),
-        new("Щит", 300),
-        new("Зелье", 50)
-    };
+    public List<Item> Items =>
+        db.Products.Select(p => new Item(p.Name, p.Price)).ToList();
 
     public List<Item> Cart { get; } = new();
 

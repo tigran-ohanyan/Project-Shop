@@ -1,0 +1,31 @@
+﻿@page "/admin/products"
+@inject ShopDb Db
+
+<h1>Админка: товары</h1>
+<table class="table">
+<tr><th>Id</th><th>Название</th><th>Цена</th></tr>
+@foreach (var p in products)
+{
+    <tr><td>@p.Id</td><td>@p.Name</td><td>@p.Price ₽</td></tr>
+}
+</table>
+<h3>Новый товар</h3>
+<input placeholder="Название" @bind="name" />
+<input type="number" placeholder="Цена" @bind="price" />
+<button @onclick="Add">Добавить</button>
+@code {
+    List<Product> products = new();
+    string name = "";
+    int price;
+    
+    protected override void OnInitialized() => products = Db.Products.ToList();
+    async Task Add()
+    {
+        if (string.IsNullOrWhiteSpace(name) || price <= 0) return;
+        Db.Products.Add(new Product { Name = name, Price = price });
+        await Db.SaveChangesAsync();
+        products = Db.Products.ToList();
+        name = "";
+        price = 0;
+    }
+}
