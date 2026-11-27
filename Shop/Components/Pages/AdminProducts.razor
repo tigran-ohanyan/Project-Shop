@@ -1,7 +1,14 @@
 ﻿@page "/admin/products"
+@attribute [Authorize(Roles = "Admin")]
 @inject ShopDb Db
 
 <h1>Админка: товары</h1>
+
+<form method="post" action="/logout">
+<AntiforgeryToken />
+<button type="submit">Выйти</button>
+</form>
+
 <table class="table">
 <tr><th>Id</th><th>Название</th><th>Цена</th></tr>
 @foreach (var p in products)

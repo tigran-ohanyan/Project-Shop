@@ -21,6 +21,8 @@ public class ShopDb(DbContextOptions<ShopDb> options) : DbContext(options)
 {
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<Product> Products => Set<Product>();
+    public DbSet<User> Users => Set<User>();
+
 
     protected override void OnModelCreating(ModelBuilder b) =>
         b.Entity<Product>().HasData(
@@ -34,4 +36,12 @@ public class Product
     public int Id { get; set; }
     public string Name { get; set; } = "";
     public int Price { get; set; }
+}
+
+public class User
+{
+    public int Id { get; set; }
+    public string Login { get; set; } = "";
+    public string PasswordHash { get; set; } = "";
+    public string Role { get; set; } = "";
 }

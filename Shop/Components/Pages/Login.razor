@@ -1,0 +1,19 @@
+﻿@page "/login"
+
+<h1>Вход в админку</h1>
+
+@if (Error)
+{
+    <p class="text-danger">Неверный логин или пароль</p>
+}
+<form method="post" action="/login">
+<AntiforgeryToken />
+<input type="hidden" name="returnUrl" value="@ReturnUrl" />
+<input name="login" placeholder="Логин" />
+<input name="password" type="password" placeholder="Пароль" />
+<button type="submit">Войти</button>
+</form>
+@code {
+    [SupplyParameterFromQuery] public string? ReturnUrl { get; set; }
+    [SupplyParameterFromQuery] public bool Error { get; set; }
+}
